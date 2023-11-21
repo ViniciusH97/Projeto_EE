@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consulta</title>
+  <!-- Incluindo Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Sigmar:wght@400&display=swap');
+
+    .custom-font {
+        font-family: 'Sigmar', sans-serif;
+    }  
+
+</style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand custom-font" href="/">Emprego Certo</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link text-white" href="/">Home</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/consulta/">Consultar Empresas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/admin/">Administração</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <h2 class="mb-4">Empresas Cadastradas</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Nome</th>
+              <th scope="col">Telefone</th>
+              <th scope="col">CNPJ</th>
+              <th scope="col">Endereço</th>
+              <th scope="col">Segmento</th>
+            </tr>
+            {% for Empresa in empresas %}
+          </thead>
+          <tbody>
+           <td>{{Empresa.nome}}</td>
+           <td>{{Empresa.telefone}}</td>
+           <td>{{Empresa.cnpj}}</td>
+           <td>{{Empresa.endereco}}</td>
+           <td>{{Empresa.segmento}}</td>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  function showResults(results) {
+    var html = '';
+    $.each(results, function(index, value){
+      html += '<div class="result">';
+      html += '<h3>' + value.nome + '</h3>';
+      html += '<p>' + value.telefone + '</p>';
+      html += '<p>' + value.cnpj + '</p>';
+      html += '<p>' + value.endereco + '</p>';
+      html += '<p>' + value.segmento + '</p>';
+      html += '</div>';
+    });
+    $('#results').html(html);
+  }
+
+  <!-- Incluindo jQuery e Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

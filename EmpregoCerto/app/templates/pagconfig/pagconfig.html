@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página Inicial</title>
+  <!-- Incluindo Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    /* Importar a fonte personalizada Sigmar */
+    @import url('https://fonts.googleapis.com/css2?family=Sigmar:wght@400&display=swap');
+
+    .custom-font {
+      font-family: 'Sigmar', sans-serif;
+    }
+
+    /* Alterações de cor */
+    .navbar {
+      background-color: #5d92fc !important;
+    }
+
+    /* Estilo para a imagem de fundo */
+    .background-image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%; 
+      height: 80%; 
+      object-fit: cover;
+      border: 5px solid #5d92fc;
+      border-radius: 15px;
+      z-index: -1;
+      filter: blur(5px) grayscale(100%);
+    }
+  
+    .content {
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+      border-radius: 20px;
+      max-width: 80%;
+      margin: 10% auto;
+      text-align: left;
+    }
+
+    .content input {
+      width: 60%;
+      border: none;
+      color: white;
+    }
+  
+    .content p {
+      font-weight: bold;
+      font-size: 30px;
+      color: white;
+    }
+
+    body {
+      margin-bottom: 100px; 
+    }
+  
+    footer{
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 10%;
+      background-color: #5d92fc;
+    }
+  
+    /* Adicione margem superior para a barra de pesquisa */
+    .search-bar {
+      margin-top: 100px;
+    }
+
+    /* Estilo para o container de login */
+    .login-container {
+      background-color: #f2f2f2;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      margin: 0 auto;
+      max-width: 400px;
+      margin-top: 100px;
+    }
+
+    /* Estilo para os botões de login */
+    .login-button {
+      background-color: #5d92fc;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #error-message {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand custom-font" href="/">Emprego Certo</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Configurações Gerais</h2>
+        <form method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="name">Mudar nome</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ user.name }}">
+          </div>
+          <div class="form-group">
+            <label for="email">Mudar e-mail</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
+          </div>
+          <div class="form-group">
+            <label for="password">Mudar senha</label>
+            <input type="password" class="form-control" id="password" name="password">
+          </div>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <h2>Configurações de Privacidade</h2>
+        <form method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="data-sharing">Compartilhamento de Dados:</label>
+            <select class="form-control" id="data-sharing" name="data-sharing">
+              <option value="opt-in">Opt-in</option>
+              <option value="opt-out">Opt-out</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-#5d92fc text-white p-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3">
+          <p class="font-weight-bold">Sobre</p>
+        </div>
+        <div class="col-sm-3">
+          <p class="font-weight-bold">Nossos Serviços</p>
+        </div>
+        <div class="col-sm-3">
+          <p class="font-weight-bold">Contato</p>
+        </div>
+        <div class="col-sm-3">
+          <p class="font-weight-bold">&copy; 2023 EmpregoCerto. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Incluindo jQuery e Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

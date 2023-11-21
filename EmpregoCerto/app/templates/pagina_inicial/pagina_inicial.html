@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página Inicial</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    /* Importar a fonte personalizada Sigmar */
+    @import url('https://fonts.googleapis.com/css2?family=Sigmar:wght@400&display=swap');
+
+    .custom-font {
+      font-family: 'Sigmar', sans-serif;
+    }
+
+    /* Alterações de cor */
+    .navbar {
+      background-color: #5d92fc !important;
+    }
+
+
+    /* Estilo para a imagem de fundo */
+    .background-image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%; 
+      height: 80%; 
+      object-fit: cover;
+      border: 5px solid #5d92fc;
+      border-radius: 15px;
+      z-index: -1;
+      filter: blur(5px) grayscale(100%);
+    }
+  
+    .content {
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+      border-radius: 20px;
+      max-width: 80%;
+      margin: 10% auto;
+      text-align: left;
+    }
+
+    .content input {
+      width: 60%;
+      border: none;
+      color: white;
+    }
+  
+    .content p {
+      font-weight: bold;
+      font-size: 30px;
+      color: white;
+    }
+
+    body {
+      margin-bottom: 100px; 
+    }
+  
+    footer{
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 10%;
+      background-color: #5d92fc;
+    }
+  
+    /* Adicione margem superior para a barra de pesquisa */
+    .search-bar {
+      margin-top: 100px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <!-- Aplicar a classe custom-font ao texto "Emprego Certo" -->
+    <a class="navbar-brand custom-font" href="/">Emprego Certo</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'vagas' %}"><i class="fas fa-search"></i> Vagas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/reserva/"><i class="far fa-envelope"></i> Mensagens</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user"></i> Perfil
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#"><i class="far fa-user"></i> Meu Perfil</a>
+            <a class="dropdown-item" href="{% url 'pagconfig' %}"><i class="fas fa-cog"></i> Configurações e Privacidade</a>
+            <a class="dropdown-item" href="#"><i class="far fa-question-circle"></i> Ajuda</a>
+            <a class="dropdown-item" href="#"><i class="fas fa-wallet"></i> Conta</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <img src="{% static 'bg.jpg' %}" class="background-image" alt="Background Image">
+
+  <div class="container mt-4 content">
+    <div class="search-container position-relative">
+      <div class="search-bar position-absolute top-50 start-50 translate-middle">
+        <form method="GET" action="{% url 'vagas' %}">
+          <p class="text-center">Qual serviço procura?</p>
+          <input type="text" class="form-control" name="q" placeholder="Pesquisar...">
+          <button type="submit" class="btn btn-primary">Pesquisar</button>
+      </form>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-#5d92fc text-white p-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3">
+          <p class="font-weight-bold">Sobre</p>
+        </div>
+        <div class="col-sm-3">
+          <p class="font-weight-bold">Nossos Serviços</p>
+        </div>
+        <div class="col-sm-3">
+          <p class="font-weight-bold">Contato</p>
+        </div>
+        <div class="col-sm-3">
+          <p class="font-weight-bold">&copy; 2023 EmpregoCerto. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+
+<!-- Incluindo jQuery e Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
