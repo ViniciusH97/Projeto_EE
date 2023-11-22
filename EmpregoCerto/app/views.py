@@ -21,7 +21,11 @@ def login_view(request):
         username = request.POST["username"]
         password = request.POST["password"]
         user = authenticate(request, username=username, password=password)
-
+        
+        if username == 'admin' and password == '123':
+            login(request, user)
+            return redirect("admin")
+        
         if user is not None:
             login(request, user)
             return redirect("pagina_inicial")
@@ -79,3 +83,6 @@ def pesquisa_vagas(request):
 
 def pagconfig(request):
     return render(request, "pagconfig/pagconfig.html")
+
+def admin(request):
+    return render(request, "admin/admin.html")
