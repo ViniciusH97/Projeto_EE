@@ -36,8 +36,10 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'bootstrap4',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'app',
 ]
 
@@ -59,7 +61,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
-LOGIN_URL = 'login'
+LOGIN_URL = '/login/' 
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 TEMPLATES = [
     {
@@ -78,7 +82,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
