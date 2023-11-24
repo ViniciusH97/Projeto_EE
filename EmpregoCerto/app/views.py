@@ -1,8 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.db import IntegrityError
+from app.forms import LoginForm
 from .models import *
+from django.contrib import messages
 
+
+def pagina_inicial(request):
+    ultimas_vagas = Vaga.objects.order_by('-id')[:5]
+
+    return render(request, "pagina_inicial/pagina_inicial.html", {'ultimas_vagas': ultimas_vagas})
 
 def pagina_inicial(request):
     return render(request, "pagina_inicial/pagina_inicial.html")
@@ -18,21 +25,28 @@ def cadastro(request):
 
 def login_view(request):
     if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
-        user = authenticate(request, username=username, password=password)
-        
-        if user is not None:
-            login(request, user)
-            if user.is_staff:
-                return redirect("admin_site")
-            else:
-                return redirect("pagina_inicial")
-        else:
-            error_message = "Usuário ou senha incorretos ou não cadastrado."
-            return render(request, "login.html", {"error_message": error_message})
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
 
-    return render(request, "login.html")
+            if user is not None:
+                login(request, user)
+
+                if user.is_staff:
+                    return redirect("admin_site")
+                else:
+                    messages.success(request, "Login bem-sucedido!")
+                    return redirect("pagina_inicial")
+            else:
+                error_message = "Usuário ou senha incorretos."
+                return render(request, "login.html", {"error_message": error_message, "form": form})
+    
+    else:
+        form = LoginForm()
+
+    return render(request, "login.html", {"form": form})
 
 
 def cadastrar_usuario(request):
@@ -85,3 +99,6 @@ def pagconfig(request):
 
 def admin_site(request):
     return render(request, "admin_site/admin_site.html")
+
+def perfil(request):
+    return render(request, "perfil/perfil.html")

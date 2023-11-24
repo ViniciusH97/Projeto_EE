@@ -117,11 +117,7 @@
     <h2>Login</h2>
     <form method = "post" action = "{% url 'login' %}">
     {% csrf_token %}
-    <input type="text" id="username" name="username" placeholder="Nome de usuário">
-    <br>
-    <br>
-    <input type="password" id="password" name="password" placeholder="Senha">
-    <br>
+    {{ form.as_p }}
     <button class="btn btn-primary login-button" type="submit">Entrar</button>
     </form>
     <p id="error-message">{{ error_message }}</p>

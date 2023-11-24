@@ -10,6 +10,14 @@
 </head>
 <body>
 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand custom-font" href="{% url 'pagina_inicial' %}">Emprego Certo</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            </ul>
+        </div>
+    </nav>
+
 <div class="container mt-4">
     <h2>Consultar Vagas</h2>
     
@@ -34,10 +42,13 @@
     {% endfor %}
 </div>
 
+
+</body>
+</html>
+
 <!-- Incluindo jQuery e Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-</body>
-</html>
+

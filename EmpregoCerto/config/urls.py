@@ -15,6 +15,7 @@ urlpatterns = [
     path('cadastrar_usuario/', cadastrar_usuario, name='cadastrar_usuario'),
     path('pagconfig/', views.pagconfig, name='pagconfig'),
     path('vagas/', views.pesquisa_vagas, name='vagas'),
+    path('perfil/', views.perfil, name='perfil'), 
 ]
 
 

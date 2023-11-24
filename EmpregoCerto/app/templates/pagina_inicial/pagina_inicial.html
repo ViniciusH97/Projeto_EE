@@ -81,7 +81,7 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <!-- Aplicar a classe custom-font ao texto "Emprego Certo" -->
-    <a class="navbar-brand custom-font" href="/">Emprego Certo</a>
+    <a class="navbar-brand custom-font" href="{% url 'pagina_inicial' %}">Emprego Certo</a>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
@@ -95,7 +95,7 @@
             <i class="fas fa-user"></i> Perfil
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#"><i class="far fa-user"></i> Meu Perfil</a>
+            <a class="dropdown-item" href="{% url 'perfil' %}"><i class="far fa-user"></i> Meu Perfil</a>
             <a class="dropdown-item" href="{% url 'pagconfig' %}"><i class="fas fa-cog"></i> Configurações e Privacidade</a>
             <a class="dropdown-item" href="#"><i class="far fa-question-circle"></i> Ajuda</a>
             <a class="dropdown-item" href="#"><i class="fas fa-wallet"></i> Conta</a>
@@ -140,7 +140,7 @@
 </body>
 </html>
 
-<!-- Incluindo jQuery e Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+

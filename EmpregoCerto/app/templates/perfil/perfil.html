@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil do Usuário</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand custom-font" href="/">Emprego Certo</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+      </ul>
+    </div>
+  </nav>
+  
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h2 class="text-center mb-4">Perfil do Usuário</h2>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Informações do Perfil</h5>
+            <p class="card-text"><strong>Nome:</strong> {{ user.nome }}</p>
+            <p class="card-text"><strong>E-mail:</strong> {{ user.email }}</p>
+            <p class="card-text"><strong>Telefone:</strong> {{ user.telefone }}</p>
+            <p class="card-text"><strong>Endereço:</strong> {{ user.endereco }}</p>
+            <!-- Adicione mais campos conforme necessário -->
+
+            <a href="{% url 'perfil' %}" class="btn btn-primary">Editar Perfil</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS e Popper.js (se necessário) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
