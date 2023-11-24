@@ -1,11 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from django.contrib.admin.views.decorators import staff_member_required 
-from .forms import *
+from django.db import IntegrityError
 from .models import *
-from django.contrib.auth.models import User
-from django.contrib import messages
-from django.db import transaction
+
 
 def pagina_inicial(request):
     return render(request, "pagina_inicial/pagina_inicial.html")
@@ -14,62 +11,64 @@ def empresa(request):
     empresas = {"empresas": Empresa.objects.all()}
     return render(request, "Empresa/empresas.html", empresas)
 
+
 def cadastro(request):
     return render(request, "cadastro/cadastro.html")
 
+
 def login_view(request):
-    error_message = None
-
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-
-            user = authenticate(request, username=username, password=password)
-
-            if user is not None:
-                login(request, user)
-
-                if user.is_staff:
-                    return redirect('admin_site')
-                else:
-                    return redirect('pagina_inicial')
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            if user.is_staff:
+                return redirect("admin_site")
             else:
-                error_message = 'Usuário ou senha incorretos ou não cadastrado.'
-                messages.error(request, error_message)  
+                return redirect("pagina_inicial")
         else:
-            error_message = 'Por favor, corrija os erros no formulário.'
-    else:
-        form = LoginForm()
+            error_message = "Usuário ou senha incorretos ou não cadastrado."
+            return render(request, "login.html", {"error_message": error_message})
 
-    return render(request, 'login.html', {'form': form, 'error_message': error_message})
+    return render(request, "login.html")
+
 
 def cadastrar_usuario(request):
     if request.method == "POST":
-        tipo_pessoa = request.POST.get("tipoPessoa")
+        try:
+            tipo_pessoa = request.POST.get("tipoPessoa")
+            nome = request.POST.get("nome")
+            telefone = request.POST.get("telefonecandidato")
+            endereco = request.POST.get("endereco")
+            telefonejuridica = request.POST.get("telefoneJuridica")
 
-        if tipo_pessoa == "fisica":
-            form = CandidatoForm(request.POST)
-        elif tipo_pessoa == "juridica":
-            form = EmpresaForm(request.POST)
+            if tipo_pessoa == "fisica":
+                email = request.POST.get("email")
+                candidato = Candidato(
+                    nome=nome, telefone=telefone, endereco=endereco, email=email
+                )
+                candidato.save()
 
-        if form.is_valid():
-            try:
-                with transaction.atomic():
-                    user = User.objects.create_user(username=request.POST['username'], password=request.POST['password'])
+            elif tipo_pessoa == "juridica":
+                cnpj = request.POST.get("cnpj")
+                razao_social = request.POST.get("razaoSocial")
+                segmento = request.POST.get("segmento")
+                enderecojuridica = request.POST.get("enderecoJuridica")
+                empr = Empresa(
+                    nome=razao_social,
+                    telefone=telefonejuridica,
+                    endereco=enderecojuridica,
+                    segmento=segmento,
+                    cnpj=cnpj,
+                )
+                empr.save()
+        except IntegrityError as e:
+            print(f"IntegrityError: {e}")
 
-                    if tipo_pessoa == "fisica":
-                        Candidato.objects.create(usuario=user, **form.cleaned_data)
-                    elif tipo_pessoa == "juridica":
-                        Empresa.objects.create(usuario=user, **form.cleaned_data)
+    return render(request, "pagina_inicial/pagina_inicial.html")
 
-                    login(request, user)
-                    return redirect('pagina_inicial')
-            except Exception as e:
-                messages.error(request, f"Erro ao cadastrar usuário: {str(e)}")
-
-    return render(request, 'pagina_inicial/pagina_inicial.html', {'form': form})
 
 def pesquisa_vagas(request):
     if 'q' in request.GET:
@@ -84,9 +83,5 @@ def pesquisa_vagas(request):
 def pagconfig(request):
     return render(request, "pagconfig/pagconfig.html")
 
-@staff_member_required  
 def admin_site(request):
-    if not request.user.is_authenticated:
-        return redirect('login_view')
-    return render(request, "admin/admin_site.html")
-
+    return render(request, "admin_site/admin_site.html")

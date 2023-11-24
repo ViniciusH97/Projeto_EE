@@ -38,7 +38,7 @@
 
   <div class="container">
     <h1>Cadastro</h1>
-    <form method="post" action="{% url 'cadastrar_usuario' %}">
+    <form method="post" action="{% url 'cadastrar_usuario' %}" onsubmit="return validateForm()">
       {% csrf_token %}
       <div class="form-group">
         <label for="tipoPessoa">Tipo de Pessoa:</label>
