@@ -21,4 +21,4 @@ class Candidato(models.Model):
     nome = models.CharField(max_length=30)
     telefone = models.CharField(max_length=10)
     endereco = models.CharField(max_length=40)
-    email = models.EmailField(max_length = 30, unique=True)
+    email = models.EmailField(max_length=30, unique=True)
