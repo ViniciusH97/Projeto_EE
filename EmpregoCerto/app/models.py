@@ -8,6 +8,9 @@ class Empresa(models.Model):
     endereco = models.CharField(max_length=50)
     segmento = models.CharField(max_length=100)
     
+    def __str__(self):
+        return self.razao_social
+    
 class Vaga(models.Model):
     titulo = models.CharField(max_length=30)
     descricao = models.CharField(max_length=50)
@@ -22,3 +25,6 @@ class Candidato(models.Model):
     telefone = models.CharField(max_length=10)
     endereco = models.CharField(max_length=40)
     email = models.EmailField(max_length=30, unique=True)
+
+    def __str__(self):
+        return self.nome
